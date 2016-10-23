@@ -6,34 +6,18 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER/GWT (1)"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/joseth/.p2/pool/plugins/com.google.gwt.eclipse.sdkbundle_2.7.0/gwt-2.7.0/gwt-user.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/home/joseth/.p2/pool/plugins/com.google.gwt.eclipse.sdkbundle_2.7.0/gwt-2.7.0/doc/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/joseth/.p2/pool/plugins/com.google.gwt.eclipse.sdkbundle_2.7.0/gwt-2.7.0/gwt-codeserver.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/home/joseth/.p2/pool/plugins/com.google.gwt.eclipse.sdkbundle_2.7.0/gwt-2.7.0/doc/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/joseth/.p2/pool/plugins/com.google.gwt.eclipse.sdkbundle_2.7.0/gwt-2.7.0/gwt-dev.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/home/joseth/.p2/pool/plugins/com.google.gwt.eclipse.sdkbundle_2.7.0/gwt-2.7.0/doc/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/joseth/.p2/pool/plugins/com.google.gwt.eclipse.sdkbundle_2.7.0/gwt-2.7.0/validation-api-1.0.0.GA-sources.jar"/>
-	<classpathentry kind="lib" path="/home/joseth/.p2/pool/plugins/com.google.gwt.eclipse.sdkbundle_2.7.0/gwt-2.7.0/validation-api-1.0.0.GA.jar" sourcepath="/home/joseth/.p2/pool/plugins/com.google.gwt.eclipse.sdkbundle_2.7.0/gwt-2.7.0/validation-api-1.0.0.GA-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="var" path="ECLIPSE_HOME"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
