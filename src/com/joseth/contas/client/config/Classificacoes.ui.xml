@@ -1,0 +1,30 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder
+  xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+  <g:HTMLPanel>
+    <table class="painel">
+      <tr><td colspan="3" class="titulo">Classificações</td></tr>
+      <tr>
+         <td>
+            <c:CellList ui:field="list1"/>
+         </td>
+         <td>
+            <c:CellList ui:field="list2"/>
+         </td>
+         <td>
+            <c:CellList ui:field="list3"/>
+         </td>
+      </tr>
+    </table>
+    <br/>
+    <table align="center">
+    <tr><td>
+        <g:PushButton ui:field="classAddBt"><g:upFace><img height="16" src="img/plus.png"/></g:upFace></g:PushButton>
+        </td><td>
+        <g:PushButton ui:field="classRemBt"><g:upFace><img src="img/excluir.gif"/></g:upFace></g:PushButton>
+        </td></tr>
+    </table>
+  </g:HTMLPanel>
+</ui:UiBinder>

@@ -1,0 +1,74 @@
+.cellTable 
+{
+      border-bottom: 11px solid #ccc;
+      text-align: left;
+      margin-bottom: 4px;
+}
+.cellTableHeader 
+{
+  text-align: center;
+}
+.cellTableSortableHeader 
+{
+  text-align: center;
+}
+.configBotoes 
+{
+   width: 225px; 
+   margin-left: auto; 
+   margin-right: auto;
+}
+.configPrincipal 
+{
+    width: 800px; 
+    margin-left: auto; 
+    margin-right: auto;
+    text-align: center;
+}
+
+.classPainelInterno
+{
+
+}
+
+.configTitulo
+{
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.classPainelCelula
+{
+    text-align: center;
+    width: 115px;
+    border: 1px solid black;
+    padding: 5px;
+    box-shadow: 1px 1px 1px black;
+    
+}
+
+.mvNome
+{
+    width: 50px;
+    height: 21px;
+    padding: 5px;
+}
+
+.mvPadrao
+{
+	width: 500px;
+	height: 21px;
+	padding: 5px;
+}
+
+.mvHeader
+{
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.mvPadrao input {
+	height: 15px;
+    width: 500px;
+}

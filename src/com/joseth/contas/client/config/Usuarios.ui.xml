@@ -1,0 +1,16 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder
+  xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+
+  <g:HTMLPanel>
+    <link rel="stylesheet" type="text/css" href="css/config.css"/>
+    <g:HorizontalPanel ui:field="pnUsuarios" width="10%" styleName="cellTable">
+    </g:HorizontalPanel>
+    <g:HorizontalPanel>
+	    <g:PushButton ui:field="classAddBt"><g:upFace><img src="img/plus.png"/></g:upFace></g:PushButton>
+		<g:PushButton ui:field="classRemBt"><g:upFace><img src="img/excluir.gif"/></g:upFace></g:PushButton>
+	</g:HorizontalPanel>
+  </g:HTMLPanel>
+</ui:UiBinder>

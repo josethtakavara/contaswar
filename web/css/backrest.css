@@ -1,0 +1,24 @@
+.backupRestorePainel
+{
+    width: 525px;
+    margin-left: auto; 
+    margin-right: auto; 
+    border-color: lightblue;
+    border-style: solid;
+    border-collapse:collapse;
+    border-width: 2px;
+    box-shadow: 4px 4px 2px black;
+    vertical-align: middle;
+    text-align: center;
+}
+
+td
+{
+	font-size: 18px;
+}
+
+table
+{
+	width: 100%;
+	text-align: center;
+}

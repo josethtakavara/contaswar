@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.5.1//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.5.1/distro-source/core/src/gwt-module.dtd">
+<module>
+    <inherits name="com.google.gwt.user.User" />
+	<inherits name="com.google.gwt.i18n.I18N"/>
+	<source path="client" />
+    <source path="beans" />
+	<entry-point class="com.joseth.contas.client.Home" />
+    <extend-property name="locale" values="pt_BR"/>
+	<set-property name="compiler.useSourceMaps" value="true"/>
+	<set-property-fallback name="locale" value="pt_BR"/>
+    <set-configuration-property name="devModeRedirectEnabled" value="true"/>
+    <add-linker name="xsiframe"/>
+</module>

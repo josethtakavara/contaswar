@@ -1,0 +1,24 @@
+.saldoDiferente
+{
+    color: red;
+}
+
+.saldoOK
+{
+    color: green;
+}
+
+.saldoPreenchido
+{
+    font-weight: bold;
+}
+
+.par   { background-color: white; }
+.impar { background-color: #DDDDDD; }
+
+.saldoCelula
+{
+	padding: 5px 15px;
+	border: 0px;
+	/*margin: 0px;*/
+}

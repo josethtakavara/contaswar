@@ -1,0 +1,12 @@
+.resumoPainel
+{
+    width: 500px;
+    font-size: 14px;
+    margin-left: auto; 
+    margin-right: auto; 
+    border-color: lightblue;
+    border-style: solid;
+    border-collapse:collapse;
+    border-width: 2px;
+    box-shadow: 4px 4px 2px black;
+}

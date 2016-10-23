@@ -1,0 +1,64 @@
+.relatorioPeriodoDataGrid
+{
+    width: 1200px;
+    height: 400px;
+}
+
+/*.relValor
+{
+    padding: 0px 10px 0px 0px;
+    width: 50px;
+    text-align: right;
+}
+
+.relTotal
+{
+    padding: 0px 10px 0px 0px;
+    width: 80px;
+    text-align: right;
+}
+
+.relClass
+{
+    padding: 0px 0px 0px 10px;
+    width: 80px;
+    text-align: left;
+}*/
+
+.par   { background-color: white; }
+.impar { background-color: #DDDDDD; }
+
+.cellTable
+{
+    border-bottom: 11px solid #ccc; 
+    text-align: left;
+    font-size: 10px;
+    border-spacing: 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+    white-space: nowrap;
+}
+
+.relValor
+{
+    padding: 3px 3px 3px 3px;
+    width: 50px;
+    text-align: right;
+    border: 0px;
+}
+
+.relTotal
+{
+    padding: 3px 23px 3px 3px;
+    width: 60px;
+    text-align: right;
+    border: 0px;
+}
+
+.relClass
+{
+    padding: 3px 3px 3px 13px;
+    width: 70px;
+    text-align: left;
+    border: 0px;
+}

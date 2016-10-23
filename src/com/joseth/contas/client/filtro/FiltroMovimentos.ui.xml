@@ -1,0 +1,104 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+
+	<g:HTMLPanel ui:field="painel">
+		<table class="painel">
+			<tr>
+				<td class="titulo">Filtro</td>
+			</tr>
+			<tr>
+				<td>
+					<table>
+						<tr>
+							<td>De Mês/Ano:</td>
+							<td>
+								<g:ListBox ui:field="filtroMesDe" />
+								<g:ListBox ui:field="filtroAnoDe" />
+							</td>
+							<td>Classificação</td>
+						</tr>
+						<tr>
+							<td>Até Mês/Ano:</td>
+							<td>
+								<g:ListBox ui:field="filtroMesAte" />
+								<g:ListBox ui:field="filtroAnoAte" />
+							</td>
+							<td rowspan="11" valign="top">
+								<g:ListBox ui:field="classificacoes" />
+							</td>
+						</tr>
+						<tr>
+							<td>Usuário</td>
+							<td>
+								<g:ListBox ui:field="usuario" />
+							</td>
+						</tr>
+						<tr>
+							<td>Conta</td>
+							<td>
+								<g:ListBox ui:field="conta" />
+							</td>
+						</tr>
+						<tr>
+							<td>Descrição</td>
+							<td>
+								<g:TextBox ui:field="descricao" />
+							</td>
+						</tr>
+						<tr>
+							<td>Comentário</td>
+							<td>
+								<g:TextBox ui:field="comentario" />
+							</td>
+						</tr>
+						<tr>
+							<td>Valor</td>
+							<td>
+								<g:TextBox ui:field="valor" />
+							</td>
+						</tr>
+						<tr>
+							<td>Sinal</td>
+							<td>
+								<g:CheckBox ui:field="sinalMais" />
+								+
+								<g:CheckBox ui:field="sinalMenos" />
+								-
+							</td>
+						</tr>
+						<tr>
+							<td>Sem Classificação</td>
+							<td>
+								<g:CheckBox ui:field="semClassificacoes" />
+							</td>
+						</tr>
+						<tr>
+							<td>Sem Comentários</td>
+							<td>
+								<g:CheckBox ui:field="semComentarios" />
+							</td>
+						</tr>
+						<tr>
+							<td>Pessoal</td>
+							<td>
+								<g:CheckBox ui:field="pessoal" />
+							</td>
+						</tr>
+						<tr>
+							<td>Mostrar SubMovimentos</td>
+							<td>
+								<g:CheckBox ui:field="subMovimentos" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<g:Button ui:field="filtrar" text="Filtrar" />
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</g:HTMLPanel>
+</ui:UiBinder>

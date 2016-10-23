@@ -1,0 +1,14 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g="urn:import:com.google.gwt.user.client.ui">
+    <ui:style>
+        .centerBotoes {width: 225px; margin-left: auto; margin-right: auto;}
+        .centerMovimentos {width: 1200px; margin-left: auto; margin-right: auto;}
+    </ui:style>
+  <g:HTMLPanel>
+    <g:HorizontalPanel styleName="{style.centerBotoes}">
+      <g:PushButton ui:field="movsBt"><g:upFace><img src="img/visualizar.png"/></g:upFace></g:PushButton>
+      <g:PushButton ui:field="carregarBt"><g:upFace><img src="img/carregar2.png"/></g:upFace></g:PushButton>
+      <g:PushButton ui:field="saldosBt"><g:upFace><img src="img/saldo.png"/></g:upFace></g:PushButton>
+    </g:HorizontalPanel>
+    <g:HTMLPanel styleName="{style.centerMovimentos}" ui:field="movimentosPrincipal"/>
+  </g:HTMLPanel>
+</ui:UiBinder> 

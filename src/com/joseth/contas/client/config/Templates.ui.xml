@@ -1,0 +1,103 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder
+  xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+
+
+  <g:HTMLPanel width="900px">
+    <link rel="stylesheet" type="text/css" href="css/template.css"/>
+	  <g:VerticalPanel horizontalAlignment="center">
+	    <g:HorizontalPanel horizontalAlignment="center">
+	        <!-- Template -->
+		    <g:HTMLPanel styleName="painel">  
+	            <br/>
+		        <c:DataGrid width="600px" height="300px" ui:field='templatesGrid' />
+		        <table align="center">
+				   <tr>
+				     <td>
+				        <g:PushButton ui:field="templateAddBt"><g:upFace><img height="16" src="img/plus.png"/></g:upFace></g:PushButton>
+				     </td>
+				     <td>
+				        <g:PushButton ui:field="templateRemBt"><g:upFace><img src="img/excluir.gif"/></g:upFace></g:PushButton>
+				     </td>
+				   </tr>
+				</table>
+		    </g:HTMLPanel>
+		    <g:HTMLPanel width="15px">&nbsp;</g:HTMLPanel>
+		    <g:VerticalPanel styleName="painel">
+		      <!-- BlackString -->
+              <g:HorizontalPanel horizontalAlignment="center">
+	            <g:HTMLPanel styleName="painel">  
+	                <br/>
+	                <c:DataGrid width="200px" height="100px" ui:field='blackStringGrid' />
+	                <table align="center">
+	                   <tr>
+	                     <td>
+	                        <g:PushButton ui:field="blackStringAddBt"><g:upFace><img height="16" src="img/plus.png"/></g:upFace></g:PushButton>
+	                     </td>
+	                     <td>
+	                        <g:PushButton ui:field="blackStringRemBt"><g:upFace><img src="img/excluir.gif"/></g:upFace></g:PushButton>
+	                     </td>
+	                   </tr>
+	                </table>
+	            </g:HTMLPanel>
+	          </g:HorizontalPanel>
+	          <g:HTMLPanel width="200px"><br/><hr/><br/></g:HTMLPanel>
+	          <!-- BlackDescricao -->
+	          <g:HorizontalPanel horizontalAlignment="center">
+	            <g:HTMLPanel styleName="painel">  
+	                <br/>
+	                <c:DataGrid width="200px" height="100px" ui:field='blackDescricaoGrid' />
+	                <table align="center">
+	                   <tr>
+	                     <td>
+	                        <g:PushButton ui:field="blackDescricaoAddBt"><g:upFace><img height="16" src="img/plus.png"/></g:upFace></g:PushButton>
+	                     </td>
+	                     <td>
+	                        <g:PushButton ui:field="blackDescricaoRemBt"><g:upFace><img src="img/excluir.gif"/></g:upFace></g:PushButton>
+	                     </td>
+	                   </tr>
+	                </table>
+	            </g:HTMLPanel>
+	          </g:HorizontalPanel>  
+		    </g:VerticalPanel>
+	    </g:HorizontalPanel>
+	    
+	    <g:HTMLPanel width="800px"><br/><hr/><br/></g:HTMLPanel>
+	    
+	    	       
+	    <g:HorizontalPanel width="400px" height="300px">
+	       <g:VerticalPanel horizontalAlignment="center">
+	           <g:Label styleName="configTitulo">Dados de Teste</g:Label>
+               <g:TextArea ui:field="testData" width="200px" height="200px"/>
+               <g:PushButton ui:field="testBt">Testar</g:PushButton>
+               <g:HTMLPanel><br/></g:HTMLPanel>
+               <g:Label  styleName="configTitulo" ui:field="mensagem"/>
+           </g:VerticalPanel>
+           <g:HTMLPanel>&nbsp;&nbsp;&nbsp;&nbsp;</g:HTMLPanel>
+           <g:VerticalPanel horizontalAlignment="center" >
+               <g:HTMLPanel>
+                    <g:Label styleName="configTitulo">Movimentos</g:Label>
+                    <br/>
+                    <c:DataGrid width="550px" height="100px" ui:field="movimentosGrid"/>
+                    <br/>
+                    <g:Label styleName="configTitulo">Descartados</g:Label>                    
+                    <br/>
+                    <c:DataGrid width="550px" height="100px" ui:field="descartadosGrid"/>
+                </g:HTMLPanel>
+           </g:VerticalPanel>
+	    </g:HorizontalPanel>
+	    
+        <g:HTMLPanel><br/><hr/><br/></g:HTMLPanel>
+	    
+	    <g:HorizontalPanel>
+	       <g:VerticalPanel horizontalAlignment="center">
+	           <g:Label styleName="configTitulo">Parser</g:Label>
+	           <g:TextArea ui:field="parseData" width="400px"/>
+               <g:Label styleName="configTitulo" ui:field="parsedData">Resultado: </g:Label>
+	       </g:VerticalPanel>
+	    </g:HorizontalPanel>
+	  </g:VerticalPanel>
+  </g:HTMLPanel>
+</ui:UiBinder>

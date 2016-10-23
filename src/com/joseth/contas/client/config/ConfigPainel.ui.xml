@@ -1,0 +1,14 @@
+<ui:UiBinder 
+    xmlns:ui='urn:ui:com.google.gwt.uibinder' 
+    xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <g:HTMLPanel>
+      <link rel="stylesheet" type="text/css" href="css/config.css"/>
+      <g:HorizontalPanel styleName="configBotoes">
+	      <g:PushButton ui:field="usuariosBt"><g:upFace><img src="img/usuarios.png"/></g:upFace></g:PushButton>
+	      <g:PushButton ui:field="classBt"><g:upFace><img src="img/classificacao.png"/></g:upFace></g:PushButton>
+          <g:PushButton ui:field="templateBt"><g:upFace><img src="img/preferencias.png"/></g:upFace></g:PushButton>
+      </g:HorizontalPanel>
+      <br/>
+      <g:HTMLPanel ui:field="configPrincipal" styleName="configPrincipal"/>
+  </g:HTMLPanel>
+</ui:UiBinder> 

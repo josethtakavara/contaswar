@@ -1,0 +1,40 @@
+<ui:UiBinder 
+    xmlns:ui='urn:ui:com.google.gwt.uibinder' 
+    xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <g:HTMLPanel>
+       <link rel="stylesheet" type="text/css" href="css/backrest.css"/>
+       <br/>
+	   <g:FormPanel action="/Contas-web/restrito/restore" method="post" ui:field="form" encoding="multipart/form-data" styleName="backupRestorePainel">
+		  <g:HTMLPanel>
+		      <table>
+		          <tr>
+                      <td>
+                         Backup do Sistema
+                      </td>
+		              <td>
+				        <g:PushButton ui:field="backupBt" width="81px" height="81px"><g:upFace><img src="img/subBackup.png"/></g:upFace></g:PushButton>
+			          </td>
+			      </tr>
+			      <tr>
+                      <td colspan="2">
+                         <hr/>
+                      </td>
+                  </tr>
+			      <tr>
+                      <td>
+                         Restore do Sistema
+                      </td>
+                      <td rowspan="2">
+						<g:PushButton ui:field="restoreBt" width="81px" height="81px"><g:upFace><img src="img/subRestore.png"/></g:upFace></g:PushButton>
+				      </td>
+			      </tr>
+                  <tr>
+                      <td>
+                        <g:FileUpload ui:field="arquivo" name="fu"/>
+                      </td>
+                  </tr>
+			  </table>
+		  </g:HTMLPanel>
+	   </g:FormPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

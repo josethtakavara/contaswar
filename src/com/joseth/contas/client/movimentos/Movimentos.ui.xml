@@ -1,0 +1,49 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder
+  xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+  <g:HTMLPanel>
+    <link rel="stylesheet" type="text/css" href="css/movimentos.css"/>
+    <br/>
+    <g:HorizontalPanel>
+	    <g:Widget ui:field="filtroMovimentos"/>
+	    <g:HTMLPanel width="50px"></g:HTMLPanel>
+	    <g:HTMLPanel>
+	      <table class="painel">
+	        <tr><td class="titulo">Classificações</td></tr>
+	        <tr>
+	           <td>
+	              <g:Grid styleName="classPainelInterno" ui:field="classGrid"/>
+	           </td>
+	        </tr>
+	      </table>
+	    </g:HTMLPanel>
+	</g:HorizontalPanel>
+    <br/>
+    <g:HTMLPanel styleName="painel">
+      <table cellspacing='0' cellpadding='0'>
+        <tr>
+          <td valign='top' colspan="5">
+            <div  style="height:350px; overflow-x: hidden; overflow-y: auto;">
+                <c:CellTable pageSize="15" styleName="cellTable" ui:field='movimentos' />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" style="width:25px">
+            <g:PushButton ui:field="movAdc"><g:upFace><img height="16" src="img/plus.png"/></g:upFace></g:PushButton>
+          </td>
+          <td align="left" style="width:25px">
+            <g:PushButton ui:field="movRem"><g:upFace><img src="img/excluir.gif"/></g:upFace></g:PushButton>
+          </td>
+          <td align="center" style="width:850px; padding-right: 50px"><c:SimplePager ui:field='movimentosPager' /></td>
+          <td align="rigth" style="width:100px"><g:Label ui:field='sumSelecao' /></td>
+          <td align="rigth" style="width:100px"><g:Label ui:field='sumPagina' /></td>
+          <td align="right" style="width:100px"><g:Label ui:field='sumTabela' /></td>
+        </tr>
+      </table>
+    </g:HTMLPanel>
+    <br/>
+  </g:HTMLPanel>
+</ui:UiBinder>

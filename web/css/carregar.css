@@ -1,0 +1,67 @@
+.carregarPainel
+{
+    width: 800px;
+    margin-top: 10px;
+    margin-left: auto; 
+    margin-right: auto; 
+    border-color: lightblue;
+    border-style: solid;
+    border-collapse:collapse;
+    border-width: 2px;
+    box-shadow: 4px 4px 2px black;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.carregarPainelInterno
+{
+    width: 96%;   
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    font-size: 12px;
+    vertical-align: top
+}
+
+.carregarVisualizarPainel
+{
+    text-align: center;
+    width: 750px;
+    padding-left: 20px;
+    overflow: inherit;
+}
+
+.carregarDescartarPainel
+{
+    width: 750px;
+    padding-left: 20px;
+}
+
+.carregarCopyArea
+{
+    width: 100%;
+    height: 100px;
+    padding: 0px;
+    font-size: 8px;
+}
+
+.visualizarCellTable
+{
+    width: 750px;
+    height: 200px;
+}
+
+.visiblefalse
+{
+    display: none;
+}
+
+.templateListBox
+{
+    width: 400px;
+}
+
+.par   { background-color: white; }
+.impar { background-color: #DDDDDD; }

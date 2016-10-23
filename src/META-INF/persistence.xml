@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+   <persistence-unit name="primary" transaction-type="RESOURCE_LOCAL"  >    
+      <exclude-unlisted-classes>false</exclude-unlisted-classes>
+      <shared-cache-mode>ALL</shared-cache-mode>
+      <properties>
+      	 <property name="hibernate.cache.use_second_level_cache" value="true"/>
+      	 <property name="hibernate.archive.autodetection" value="class, hbm"/>
+         <property name="hibernate.show_sql" value="true" />
+         <property name="hibernate.format_sql" value="true" />
+         <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+         <!--  property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/contas_novo_dsv" /-->
+         <property name="hibernate.connection.url" value="jdbc:mysql://joseth-server:3306/Contas" />
+         <property name="hibernate.connection.username" value="contas" />
+         <property name="hibernate.connection.password" value="contas" />
+         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+         <property name="hibernate.c3p0.min_size" value="1" />
+         <property name="hibernate.c3p0.max_size" value="5" />
+         <property name="hibernate.c3p0.timeout" value="100" />
+         <property name="hibernate.c3p0.max_statements" value="0" />
+         <property name="hibernate.c3p0.acquire_increment" value="1" />
+         <property name="hibernate.c3p0.idle_test_period" value="300" />
+      </properties>
+   </persistence-unit>
+</persistence>

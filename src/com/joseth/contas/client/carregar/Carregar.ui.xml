@@ -1,0 +1,73 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder
+  xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+  <g:HTMLPanel>
+    <link rel="stylesheet" type="text/css" href="css/carregar.css"/>   
+    <br/>
+    <!-- Painel Principal -->
+    <div class="carregarPainel">  
+        <div class="titulo">Carregar Movimentos</div>
+        <div class="carregarPainelInterno">
+            <div ui:field="divConta" >
+                Conta: <g:ListBox ui:field="conta"/>
+                <br/>
+            </div>
+            <div>                    
+                Inverter:
+                <g:CheckBox ui:field="inverter"/>
+                <g:RadioButton ui:field="tpArquivo"/>
+                <g:RadioButton ui:field="tpDados"/>
+            </div>
+        </div>
+      </div>
+      
+      <!-- Quebra de linha e painel para carga de arquivo -->
+      <div class="visiblefalse" style="padding-top: 5px" ui:field="arquivoPainel">
+	      <div class="carregarPainel" >  
+	        <div class="titulo">Arquivo</div>
+	        <g:FormPanel styleName="carregarPainelInterno" action="restrito/carregarArquivo" method="POST" encoding="multipart/form-data" ui:field="arquivoFormPainel">
+	            <g:VerticalPanel>
+		            <g:FileUpload name="arquivoFileUpload"/>
+		            <g:Hidden name="hd" ui:field="arquivoHiddenId"/>
+		            <g:SubmitButton text="Visualizar"/>
+	            </g:VerticalPanel>
+	        </g:FormPanel>
+	      </div>
+      </div>
+      
+      <!-- Quebra de linha e painel para carga de texto -->
+      <div class="visiblefalse" style="padding-top: 5px" ui:field="textoPainel">
+	      <div class="carregarPainel">  
+	        <div class="titulo">Copiar e Colar</div>
+	        <div class="carregarPainelInterno">
+	            Template: <g:ListBox styleName="templateListBox" ui:field="template"/>
+	            <g:TextArea styleName="carregarCopyArea" ui:field="ta"/>
+	            <g:Button text="Visualizar" ui:field="visualizarBotao"/>
+	        </div>
+	      </div>
+      </div>
+      
+      <!-- Painel de resultados processados -->
+      <div class="visiblefalse" style="padding-top: 5px" ui:field="processadosPainel">
+	      <div class="carregarPainel">
+	        <div class="titulo">Processados</div>        
+	        <div class="carregarPainelInterno">
+	           <c:DataGrid styleName="visualizarCellTable" height="200px" ui:field="visualizarMovimentos"/>
+	           <g:Button ui:field="gravarBotao" text="Gravar"/>
+	        </div>
+          </div>
+      </div>
+
+      <!-- Painel de resultados descartados -->
+      <div class="visiblefalse" style="padding-top: 5px" ui:field="descartadosPainel">
+          <div class="carregarPainel">
+            <div class="titulo">Descartados</div>        
+	        <div class="carregarPainelInterno" >
+                <c:DataGrid styleName="visualizarCellTable" height="140px" ui:field="descartarMovimentos"/>
+	        </div>
+	      </div>
+      </div>
+  </g:HTMLPanel>
+</ui:UiBinder>

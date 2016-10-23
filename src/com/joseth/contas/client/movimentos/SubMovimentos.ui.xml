@@ -1,0 +1,21 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder
+  xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:jm="urn:import:com.joseth.contas.client.movimentos">
+  
+  <g:HTMLPanel>
+      <link rel="stylesheet" type="text/css" href="css/submovimentos.css"/>
+	  <table class="painel">
+	      <tr class="titulo">
+	          <td align="center">SubMovimentos <g:Label ui:field="paiLabel" /></td>
+	          <td width="1px"><g:PushButton ui:field="fecharBt"><g:upFace><img src="img/excluir.gif"/></g:upFace></g:PushButton></td>
+	      </tr>
+	      <tr>
+	           <td colspan="2" class="subMovimentosPainelInterno">
+	               <jm:Movimentos ui:field="movimentos"/>
+               </td>
+	      </tr>
+	  </table>
+  </g:HTMLPanel>
+</ui:UiBinder>
