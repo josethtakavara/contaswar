@@ -1,0 +1,6 @@
+#localWarDir=C:/java/war
+#localCtxDir=C:/java/apache-tomcat-7.0.72/conf/Catalina/localhost
+#remoteWarDir=NoteServer.joseth.com:/var/lib/tomcat7/webapps_contextful
+#remoteCtxDir=NoteServer.joseth.com:/var/lib/tomcat7/conf/Catalina/localhost/
+#remoteUser=
+#remotePassword=

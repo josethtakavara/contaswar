@@ -7,8 +7,8 @@
     <source path="beans" />
 	<entry-point class="com.joseth.contas.client.Home" />
     <extend-property name="locale" values="pt_BR"/>
-	<set-property name="compiler.useSourceMaps" value="true"/>
+	<!-- set-property name="compiler.useSourceMaps" value="true"/ -->
 	<set-property-fallback name="locale" value="pt_BR"/>
-    <set-configuration-property name="devModeRedirectEnabled" value="true"/>
-    <add-linker name="xsiframe"/>
+    <!--  set-configuration-property name="devModeRedirectEnabled" value="true"/ -->
+    <!--  add-linker name="xsiframe"/ -->
 </module>

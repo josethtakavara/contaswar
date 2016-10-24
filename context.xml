@@ -1,4 +1,4 @@
-<Context path="/Contas" reloadable="true" docBase="/var/lib/tomcat7/webapps_contextful/ContasWar-0.0.1-SNAPSHOT.war">
+<Context path="/Contas" reloadable="true" docBase="@WARPATH@/ContasWar.war">
     <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
                resourceName="UserDatabase"/>
 </Context>

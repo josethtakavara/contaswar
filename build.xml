@@ -1,0 +1,22 @@
+<project name="Contas" basedir=".">
+  <description>Deploy Contas</description>
+  <property  file="build.properties"/>
+
+  <target  name="Instalar Local">
+    <copy file="target/ContasWar-0.0.1-SNAPSHOT.war" tofile="${localWarDir}/ContasWar.war"/>
+	<copy  file="context.xml" tofile="${localCtxDir}/Contas.xml">
+		<filterset >
+    		<filter token="WARPATH" value="${localWarDir}"/>
+    	</filterset>
+	</copy>
+  </target>
+	
+  <target  name="Instalar Remoto">
+    <scp file="target/ContasWar-0.0.1-SNAPSHOT.war" remoteTofile="${remoteUser}@${remoteWarDir}/ContasWar.war" password="${remotePassword}" trust="true"/>
+	<scp file="context.xml" remoteTofile="${remoteUser}@${remoteCtxDir}/Contas.xml" password="${remotePassword}" trust="true">
+		<filterset >
+    		<filter token="WARPATH" value="${remoteWarDir}"/>
+    	</filterset>
+	</scp>
+  </target>
+</project>
