@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.gwt.cell.client.Cell;
+import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.EditTextCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.SelectionCell;
@@ -41,6 +42,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.joseth.contas.beans.Conta;
 import com.joseth.contas.beans.Movimento;
 import com.joseth.contas.client.Home;
+import com.joseth.contas.client.clones.ContasEditTextCell;
 import com.joseth.contas.client.filtro.FiltroMovimentos;
 
 public class Movimentos extends Composite
@@ -341,7 +343,7 @@ public class Movimentos extends Composite
     };
 
 	// Data
-	final Column<Movimento, String> colunaData = new Column<Movimento, String>(new EditTextCell()) 
+	final Column<Movimento, String> colunaData = new Column<Movimento, String>(	new DataEditTextCell() ) 
     {		
 		{
 	  	    setFieldUpdater(
@@ -350,6 +352,7 @@ public class Movimentos extends Composite
 	  	    		@Override
 	  	    		public void update(int index, Movimento m, String v) 
 	  	    		{
+	  	    			Date old = m.getData();
 	  	    			DateTimeFormat dtf = DateTimeFormat.getFormat("dd/MM/yyyy");
 	  	    			try
 	  	    			{
@@ -358,10 +361,11 @@ public class Movimentos extends Composite
 	  	    			}
 	  	    			catch( IllegalArgumentException pe)
 	  	    			{
-	  	    				((EditTextCell) colunaData.getCell()).clearViewData(m.getId()); 
-	  	    				movimentos.redraw();
+	  	    				((DataEditTextCell) colunaData.getCell()).clearViewData(m.getId()); 
+//	  	    				movimentos.redraw();
 	  	    			}
-                        atualizaMovimento(m);
+	  	    			if( !old.equals(m.getData()))
+	  	    				atualizaMovimento(m);
 	  	    		}
 	  	    	}
 	      	);
@@ -369,7 +373,13 @@ public class Movimentos extends Composite
 		}
 		public String getValue(Movimento m) 
 		{
-			DateTimeFormat dtf = DateTimeFormat.getFormat("E, dd/MM/yyyy");
+			DateTimeFormat dtf = null;
+			Context ctx = new Context(0,0,m.getId());
+			
+			if( getCell().isEditing(ctx, null, null) )
+				dtf = DateTimeFormat.getFormat("dd/MM/yyyy");
+			else
+				dtf = DateTimeFormat.getFormat("E, dd/MM/yyyy");
 			return dtf.format(m.getData());
 		}
     };
@@ -385,8 +395,11 @@ public class Movimentos extends Composite
 			    		@Override
 			    		public void update(int index, Movimento m, String v) 
 			    		{
-			    			m.setDescricao(v);
-			    			atualizaMovimento(m);
+			    			if( (v == null && m.getDescricao() != null) || !v.equals(m.getDescricao() ) )
+	    					{
+			    				m.setDescricao(v);
+			    				atualizaMovimento(m);
+	    					}
 			    		}
 			    	}
 		    	);
@@ -404,8 +417,11 @@ public class Movimentos extends Composite
 	  				    		@Override
 	  				    		public void update(int index, Movimento m, String v) 
 	  				    		{
-	  				    			m.setDocumento(v);
-                                    atualizaMovimento(m);
+	  				    			if( (v == null && m.getDocumento() != null) || !v.equals(m.getDocumento() ) )
+	  		    					{
+	  				    				m.setDocumento(v);
+	  				    				atualizaMovimento(m);
+	  		    					}
 	  				    		}
 	  				    	}
 	  			    	);
@@ -425,9 +441,13 @@ public class Movimentos extends Composite
 			    		public void update(int index, Movimento m, String v) 
 			    		{
 			    		    NumberFormat nf = NumberFormat.getFormat("###0.00");
-			    			m.setValor(nf.parse(v));
-			    			atualizarTotais();
-                            atualizaMovimento(m);
+			    		    double nv = nf.parse(v); 
+			    		    if( nv != m.getValor().doubleValue() )
+			    		    {
+				    			m.setValor(nv);
+				    			atualizarTotais();
+	                            atualizaMovimento(m);
+			    		    }
 			    		}
 			    	}
 		    	);
@@ -465,8 +485,11 @@ public class Movimentos extends Composite
 			    		@Override
 			    		public void update(int index, Movimento m, String v) 
 			    		{
-			    			m.setComentario(v);
-                            atualizaMovimento(m);
+			    			if( (v == null && m.getComentario() != null) || !v.equals(m.getComentario() ) )
+	    					{
+			    				m.setComentario(v);
+	                            atualizaMovimento(m);	
+	    					}			    			
 			    		}
 			    	}
 		    	);
@@ -585,14 +608,20 @@ public class Movimentos extends Composite
     };
 }
 
+class DataEditTextCell extends ContasEditTextCell
+{
+	@Override
+	protected void edit(Cell.Context context,
+            Element parent,
+            java.lang.String value)
+	{
+		super.edit(context,parent,value.substring(value.indexOf(", ")+2));
+	}
+	
+	public boolean isEditing(Movimento m)
+	{
+		Context ctx = new Context(0,0,m.getId());
+		return isEditing(ctx, null, null);
+	}
 
-
-//
-//private AsyncCallback<Movimento> movimentoCallBack = new AsyncCallback<Movimento>()
-//{
-//    public void onFailure(Throwable caught){}
-//    public void onSuccess(Movimento m2)
-//    {
-//        
-//    }
-//};
+}

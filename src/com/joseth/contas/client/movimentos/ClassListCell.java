@@ -1,6 +1,9 @@
 package com.joseth.contas.client.movimentos;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
@@ -19,13 +22,11 @@ import com.joseth.contas.client.Home;
 
 public class ClassListCell extends AbstractCell<Movimento>
 {
-//	private List<Classificacao> cls = new ArrayList<Classificacao>();
-
-    ListDataProvider dp;
-    int cidRemover;
+    ListDataProvider<Movimento> dp;
+    String cidRemover;
     boolean ctrl;
     MultiSelectionModel<Movimento> msm;
-    public ClassListCell(ListDataProvider dp, MultiSelectionModel<Movimento> msm)
+    public ClassListCell(ListDataProvider<Movimento> dp, MultiSelectionModel<Movimento> msm)
     {
         super("drop","dragover","dragstart","dragend","keydown","keyup" );
         this.dp = dp;
@@ -53,7 +54,6 @@ public class ClassListCell extends AbstractCell<Movimento>
 		sb.append(SafeHtmlUtils.fromTrustedString(end));
 	}
 	
-	
 	@Override
 	public void onBrowserEvent(Cell.Context context, Element parent, Movimento value, NativeEvent event, ValueUpdater<Movimento> valueUpdater)
 	{
@@ -62,52 +62,27 @@ public class ClassListCell extends AbstractCell<Movimento>
 	      
 	      if ("drop".equals(event.getType())) 
 	      {
-//            Window.setTitle("$"+event.getDataTransfer().getData("text/plain"));
-	          Home.serviceBus.getClassificacoes( new ClassListCellCallBack(event.getDataTransfer().getData("text/plain"), value, dp));
-	          for( Movimento m: msm.getSelectedSet() )
-	              Home.serviceBus.getClassificacoes( new ClassListCellCallBack(event.getDataTransfer().getData("text/plain"), m, dp));
-	      }
-	      else if ("dragleave".equals(event.getType()))
-	      {
-	          //Window.alert(event.getDataTransfer().getData("text/plain"));
-	          //Home.serviceBus.getClassificacoes( new ClassListCellCallBack(event.getDataTransfer().getData("text/plain"), value, dp));
-//	          Window.setTitle("*"+event.getDataTransfer().getData("text/plain"));
+	    	  Set<Movimento> msSelecionados = new TreeSet<Movimento>();
+	    	  msSelecionados.add(value);
+	    	  Home.consoleLog(msm);
+	    	  msSelecionados.addAll(msm.getSelectedSet());
+	          Home.serviceBus.getClassificacoes( 
+	        		  new ClassListCellCallBack(event.getDataTransfer().getData("text/plain"), msSelecionados, dp,ClassListCellCallBack.OP_ADD)
+    		  );
 	      }
 	      else if ("dragend".equals(event.getType()))
           {
-//              Window.setTitle("!"+event.getDataTransfer().getData("text/plain"));
-	          if( !ctrl )
-	          {
-                  for(int i=0; i < value.getClassificacoes().size(); i++)
-                  {
-                      if( value.getClassificacoes().get(i).getId() == cidRemover )
-                      {
-                          value.getClassificacoes().remove(i);
-//                          Home.serviceBus.atualizarMovimento(value,nullCallBack);
-                          final Movimento v2 = value;
-                          Home.serviceBus.atualizarMovimento(value,new AsyncCallback<Movimento>()
-                                  {
-                                      public void onFailure(Throwable caught){}
-                                      public void onSuccess(Movimento m2)
-                                      {
-                                          if( v2.getId() < 0 )
-                                          {
-                                              v2.setId(m2.getId());
-                                              dp.refresh();
-                                          }
-                                      }
-                                  }
-                              );
-                          break;
-                      }
-                  }
-	          }
-              dp.refresh();
+        	  Set<Movimento> msSelecionados = new TreeSet<Movimento>();
+	    	  msSelecionados.add(value);
+	    	  Home.consoleLog(msm);
+	    	  msSelecionados.addAll(msm.getSelectedSet());
+	          Home.serviceBus.getClassificacoes( 
+	        		  new ClassListCellCallBack(cidRemover, msSelecionados, dp,ClassListCellCallBack.OP_REM)
+    		  );
           }
 	      else if ("dragstart".equals(event.getType()))
           {
-//              Window.setTitle("%"+event.getDataTransfer().getData("text/plain"));
-              cidRemover = (int)NumberFormat.getFormat("0").parse(event.getDataTransfer().getData("text/plain")); 
+              cidRemover = event.getDataTransfer().getData("text/plain"); 
           }
 	      else if ("keydown".equals(event.getType()))
           {
@@ -120,56 +95,67 @@ public class ClassListCell extends AbstractCell<Movimento>
                   ctrl=false;
           }
 	}
-	private AsyncCallback<Void> nullCallBack = new AsyncCallback<Void>()
-    {
-        public void onFailure(Throwable caught){}
-        public void onSuccess(Void a){}
-    };
 }
 
 class ClassListCellCallBack implements AsyncCallback<List<Classificacao>>
 {
+	public static final int OP_ADD=1;
+	public static final int OP_REM=2;
     String cid;
-    Movimento m;
-    ListDataProvider dp;
-    public ClassListCellCallBack(String cid, Movimento m, ListDataProvider dp)
+    Set<Movimento> ms;
+    ListDataProvider<Movimento> dp;
+    int op;
+    public ClassListCellCallBack(String cid, Set<Movimento> ms, ListDataProvider<Movimento> dp, int op)
     {
         this.cid = cid;
-        this.m=m;
+        this.ms=ms;
         this.dp=dp;
+        this.op=op;
     }
     public void onFailure(Throwable caught){}
     public void onSuccess(List<Classificacao> result)
     {
+    	List<Movimento> msAtualizados = new ArrayList<Movimento>();
         for( Classificacao c: result)
         {
             if( c.getId().toString().equals(cid))
             {
-                if( !m.getClassificacoes().contains(c) )
-                {
-                    m.getClassificacoes().add(c);
-                    dp.refresh();
-                }
+            	for( Movimento m: ms )
+            	{
+            		if( op == OP_ADD )
+            		{
+		                if( !m.getClassificacoes().contains(c) )
+		                {
+		                    m.getClassificacoes().add(c); 
+		                    msAtualizados.add(m);
+		                }
+            		}
+	                else if( op == OP_REM )
+	                {
+	                	if( m.getClassificacoes().contains(c) )
+		                {
+	                		m.getClassificacoes().remove(c);
+	                		msAtualizados.add(m);
+		                }
+	                }
+            	}
+                break;
             }
         }
-//        Home.serviceBus.atualizarMovimento(m,nullCallBack);
-        Home.serviceBus.atualizarMovimento(m,new AsyncCallback<Movimento>()
-            {
-                public void onFailure(Throwable caught){}
-                public void onSuccess(Movimento m2)
-                {
-                    if( m.getId() < 0 )
-                    {
-                        m.setId(m2.getId());
+        for(Movimento m: msAtualizados)
+        {
+        	final Movimento fm = m;
+	        Home.serviceBus.atualizarMovimento(fm,new AsyncCallback<Movimento>()
+	            {
+	                public void onFailure(Throwable caught){}
+	                public void onSuccess(Movimento m2)
+	                {
+	                    if( fm.getId() < 0 )
+	                        fm.setId(m2.getId());
                         dp.refresh();
-                    }
-                }
-            }
-        );
+	                }
+	            }
+	        );
+        }
     }
-    private AsyncCallback<Void> nullCallBack = new AsyncCallback<Void>()
-    {
-        public void onFailure(Throwable caught){}
-        public void onSuccess(Void a){}
-    };
 }

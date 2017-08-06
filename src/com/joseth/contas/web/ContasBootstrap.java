@@ -15,7 +15,7 @@ public class ContasBootstrap implements javax.servlet.ServletContextListener
     public void contextDestroyed(ServletContextEvent sce)
     {
         sce.getServletContext().log("Contas Destruindo");
-//        em.close();
+//        em.close(); 
         emf.close();
         sce.getServletContext().log("Contas Destruido ok");
     }

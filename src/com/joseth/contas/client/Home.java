@@ -45,4 +45,8 @@ public class Home implements EntryPoint
 	    }
 	    return e;
 	}
+	
+	public static native void consoleLog( Object o) /*-{
+	  console.log( o );
+	}-*/;
 }
