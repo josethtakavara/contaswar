@@ -40,7 +40,7 @@ import com.joseth.contas.daos.TemplateDAO;
 import com.joseth.contas.daos.UsuarioDAO;
 
 @WebServlet(urlPatterns="/com.joseth.contas.ContasGWT/serviceBus") 
-@ServletSecurity(value=@HttpConstraint(rolesAllowed={"contas"}))
+//@ServletSecurity(value=@HttpConstraint(rolesAllowed={"contas"})) 
 public class ServiceBusImpl extends RemoteServiceServlet implements ServiceBus
 {
     DAOGenerico dg = new DAOGenerico();

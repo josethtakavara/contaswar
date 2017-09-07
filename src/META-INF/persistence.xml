@@ -18,9 +18,17 @@
          <property name="hibernate.connection.username" value="contas" />
          <property name="hibernate.connection.password" value="contas" / -->
          
-         <property name="hibernate.connection.url" value="jdbc:mysql://noteserver.joseth.com:3306/ContasDSV" />
+         <property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/Contas" />
+         <property name="hibernate.connection.username" value="contas" />
+         <property name="hibernate.connection.password" value="contas" />
+         
+         <!--  property name="hibernate.connection.url" value="jdbc:mysql://noteserver.joseth.com:3306/ContasDSV" />
          <property name="hibernate.connection.username" value="contasDSV" />
-         <property name="hibernate.connection.password" value="contasDSV" />
+         <property name="hibernate.connection.password" value="contasDSV" / --> 
+         
+         <!-- property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/ContasDSV" />
+         <property name="hibernate.connection.username" value="contasDSV" />
+         <property name="hibernate.connection.password" value="contasDSV" / -->
          
          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
          <property name="hibernate.c3p0.min_size" value="1" />

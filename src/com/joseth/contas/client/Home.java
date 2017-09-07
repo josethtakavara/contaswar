@@ -6,7 +6,7 @@ import com.google.gwt.event.shared.UmbrellaException;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class Home implements EntryPoint   
+public class Home implements EntryPoint    
 {
 	//CellList<String> classificacaoList = new CellList<String>(new TextCell());
 	//ListDataProvider<String> classificacaoDataProvider = new ListDataProvider<String>();

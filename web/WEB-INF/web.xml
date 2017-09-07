@@ -6,10 +6,10 @@
     <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>
     <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.htm</welcome-file> 
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <security-constraint>
+  <!--  security-constraint>
     <web-resource-collection>
         <web-resource-name>
             Restrito
@@ -34,5 +34,5 @@
   <login-config>
     <auth-method>BASIC</auth-method>
     <realm-name>contas</realm-name>
-  </login-config>
+  </login-config -->
 </web-app>  

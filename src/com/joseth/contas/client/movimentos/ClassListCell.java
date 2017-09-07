@@ -62,10 +62,14 @@ public class ClassListCell extends AbstractCell<Movimento>
 	      
 	      if ("drop".equals(event.getType())) 
 	      {
-	    	  Set<Movimento> msSelecionados = new TreeSet<Movimento>();
-	    	  msSelecionados.add(value);
+	    	  //Set<Movimento> msSelecionados = new TreeSet<Movimento>();
+	    	  Set msSelecionados = new TreeSet();
+//	    	  msSelecionados.add(value);
 	    	  Home.consoleLog(msm);
-	    	  msSelecionados.addAll(msm.getSelectedSet());
+//	    	  Set msmSelected =  msm.getSelectedSet();
+	    	  for( Movimento m: msm.getSelectedSet() )
+	    		  msSelecionados.add(m);
+//	    	  msSelecionados.addAll(msmSelected);
 	          Home.serviceBus.getClassificacoes( 
 	        		  new ClassListCellCallBack(event.getDataTransfer().getData("text/plain"), msSelecionados, dp,ClassListCellCallBack.OP_ADD)
     		  );
@@ -75,7 +79,9 @@ public class ClassListCell extends AbstractCell<Movimento>
         	  Set<Movimento> msSelecionados = new TreeSet<Movimento>();
 	    	  msSelecionados.add(value);
 	    	  Home.consoleLog(msm);
-	    	  msSelecionados.addAll(msm.getSelectedSet());
+	    	  //Set msmSelected =  msm.getSelectedSet();
+	    	  for( Movimento m: msm.getSelectedSet() )
+	    		  msSelecionados.add(m);
 	          Home.serviceBus.getClassificacoes( 
 	        		  new ClassListCellCallBack(cidRemover, msSelecionados, dp,ClassListCellCallBack.OP_REM)
     		  );

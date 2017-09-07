@@ -5,7 +5,7 @@ import javax.persistence.Persistence;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.annotation.WebListener;
 
-@WebListener
+@WebListener 
 public class ContasBootstrap implements javax.servlet.ServletContextListener
 {
     private static EntityManagerFactory emf;
@@ -20,7 +20,7 @@ public class ContasBootstrap implements javax.servlet.ServletContextListener
         sce.getServletContext().log("Contas Destruido ok");
     }
 
-    @Override
+    @Override 
     public void contextInitialized(ServletContextEvent sce)
     {
         sce.getServletContext().log("Contas Inicializando ");

@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+import javax.persistence.CascadeType; 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,17 +26,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.joseth.contas.xmlbkp.ClassificacaoRefXmlAdapter;
 import com.joseth.contas.xmlbkp.ContaRefXmlAdapter;
 import com.joseth.contas.xmlbkp.MovimentoRefXmlAdapter;
-//import org.jboss.seam.contexts.Contexts;
-//
-//import com.joseth.common.jpa.DAOGenerico;
 
-@Entity 
-public class Movimento implements Serializable 
-{
-//    @EJB(beanName="cld")
-//    ClassificacaoDAO cld;
-	
-	//seam-gen attributes (you should probably edit these)
+@Entity  
+public class Movimento implements Serializable, Comparable<Movimento>
+{ 
+
 	private Integer id;
 	private Integer version;
 	private Conta conta;
@@ -275,6 +269,12 @@ public class Movimento implements Serializable
 
 	public void setDataRaiz(Date dataRaiz) {
 		this.dataRaiz = dataRaiz;
+	}
+
+	@Override
+	public int compareTo(Movimento o) 
+	{
+		return id.compareTo(o.getId());
 	}
 }
 
