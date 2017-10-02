@@ -10,7 +10,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 import com.joseth.contas.client.carregar.Carregar;
-import com.joseth.contas.client.clones.Movimentos2;
 import com.joseth.contas.client.saldos.Saldos;
 
 public class MovimentosPainel extends Composite

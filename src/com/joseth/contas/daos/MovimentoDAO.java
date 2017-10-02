@@ -218,7 +218,7 @@ public class MovimentoDAO extends DAOBase
 		        jpaQL+=" and m.descricao like concat('%',:descricao,'%') ";
 		    if( comentario     != null && !"".equals(comentario))
 		        jpaQL+=" and m.comentario like concat('%',:comentario,'%') ";
-		    if( valor     != null && !"".equals(valor))
+		    if( valor     != null && valor !=0 )
 		        jpaQL+=" and m.valor=:valor ";
 		    if( semComentario     != null && semComentario )
 		        jpaQL+=" and (m.comentario is null or m.comentario='') ";
@@ -264,7 +264,7 @@ public class MovimentoDAO extends DAOBase
 		    	query.setParameter("descricao",descricao);
 		    if( comentario     != null && !"".equals(comentario))
 		    	query.setParameter("comentario",comentario);
-		    if( valor     != null && !"".equals(valor))
+		    if( valor     != null && valor !=0 )
 		    	query.setParameter("valor",valor);
 		    if( pessoal != null && pessoal )
 		    {
