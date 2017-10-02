@@ -21,7 +21,6 @@ public class ContasRequestListener implements javax.servlet.ServletRequestListen
     @Override
     public void requestDestroyed(ServletRequestEvent sre)
     {
-        // TODO Auto-generated method stub
         EntityManager em = emtl.get();
         em.getTransaction().commit();
         em.close();
