@@ -24,6 +24,7 @@ public class ResumoPainel extends Composite
     @UiField Element classificadosCnt;
     @UiField Element movPerClass;
     @UiField Element tdbar;
+    @UiField Element bdString;
     @UiField(provided=true) NumberLabel<Double> valor = new NumberLabel<Double>(NumberFormat.getFormat("#,###.00"));
 	
 	public ResumoPainel() 
@@ -45,6 +46,7 @@ public class ResumoPainel extends Composite
                     
                     tdbar.setAttribute("width",""+r.movPercentClass+"%" );
                     valor.setValue(r.valor);
+                    bdString.setInnerHTML(r.bdString);
                 }
             } 
         );    

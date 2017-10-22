@@ -285,6 +285,7 @@ public class ServiceBusImpl extends RemoteServiceServlet implements ServiceBus
 	    ret.movClassCnt = est.get("classificadosCnt").intValue();
 	    ret.movPercentClass = est.get("classificadosPercentual").doubleValue();
 	    ret.valor = est.get("valor").doubleValue();
+	    ret.bdString = ""+est.get("bdString"); 
 	    return ret;
 	}
  

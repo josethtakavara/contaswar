@@ -37,11 +37,10 @@ public class Saldos extends Composite
 	
 	@UiField(provided = true) protected ListBox conta = new ListBox();
 	@UiField(provided = true) protected ListBox ano = new ListBox();
-	@UiField(provided = true) DataGrid<Saldo> saldosGrid = new DataGrid<Saldo>();
-    ListDataProvider<Saldo> saldosDataProvider = new ListDataProvider<Saldo>();
+	@UiField(provided = true) DataGrid<SaldoCalculado> saldosGrid = new DataGrid<SaldoCalculado>();
+    ListDataProvider<SaldoCalculado> saldosDataProvider = new ListDataProvider<SaldoCalculado>();
     
-    Map<String, Double> anoMesSoma  = new HashMap<String, Double>();
-    Map<String, Saldo>  anoMesSaldo = new HashMap<String, Saldo>();
+//    Map<String, Double> anoMesSoma  = new HashMap<String, Double>();
     Map<String, Conta>  contasMap   = new HashMap<String, Conta>();
 	
 	public Saldos() 
@@ -61,10 +60,10 @@ public class Saldos extends Composite
         saldosGrid.addColumn(colunaFinal,      "Final"  );
         saldosGrid.addColumn(colunaDiferenca,  "Diferença"  );
         
-        saldosGrid.setRowStyles(new RowStyles<Saldo>() 
+        saldosGrid.setRowStyles(new RowStyles<SaldoCalculado>() 
         {
             @Override
-            public String getStyleNames(Saldo row, int rowIndex) 
+            public String getStyleNames(SaldoCalculado row, int rowIndex) 
             {
                 return (rowIndex%2)==0?"par":"impar";
             }
@@ -108,12 +107,11 @@ public class Saldos extends Composite
 	
 	public void escolheConta()
 	{
+		final Map<String, Saldo>  anoMesSaldo = new HashMap<String, Saldo>();
 	    saldosDataProvider.getList().clear();
 	    if( conta.getSelectedIndex() >= 1 && ano.getSelectedIndex() >= 1 )
 	    {
 	        saldosDataProvider.getList().clear();
-	        anoMesSaldo.clear();
-	        anoMesSoma.clear();
             Home.serviceBus.getSaldos( conta.getValue(conta.getSelectedIndex()) , 
                 new AsyncCallback<List<Saldo>>()
                 {
@@ -131,44 +129,24 @@ public class Saldos extends Composite
                                 public void onFailure(Throwable caught){}
                                 public void onSuccess(List result)
                                 {
-                                    Saldo sva = null;
+                                    SaldoCalculado sca = null;
                                     for( Map m: (List<Map>)result)
                                     {
                                         String anoMes = m.get("ano")+"/"+m.get("mes");
-                                        anoMesSoma.put(anoMes, (Double)m.get("soma"));
                                         Saldo sr = anoMesSaldo.get(anoMes);
+                                        if( sr == null )
+                                        {
+                                        	sr = new Saldo();
+                                            sr.setId(-1);
+                                            sr.setAno((Integer)m.get("ano"));
+                                            sr.setMes((Integer)m.get("mes"));
+                                            sr.setConta( contasMap.get( conta.getValue( conta.getSelectedIndex() ) ) );
+                                        }
                                         
-                                        Saldo sv = new Saldo();
-                                        sv.setAno((Integer)m.get("ano"));
-                                        sv.setMes((Integer)m.get("mes"));
-                                        sv.setConta( contasMap.get( conta.getValue( conta.getSelectedIndex() ) ) );
+                                        SaldoCalculado sc = new SaldoCalculado(sr,sca,(Double)m.get("soma"));
                                         
-                                        if( sr != null )
-                                        {
-                                            if( sr.getSaldoInicial() != null )
-                                                sv.setSaldoInicial( sr.getSaldoInicial() );
-                                            else if( sva != null )
-                                                sv.setSaldoInicial( sva.getSaldoFinal() );
-                                            else
-                                                sv.setSaldoInicial( 0.0 );
-                                            
-                                            if( sr.getSaldoFinal() != null )
-                                                sv.setSaldoFinal( sr.getSaldoFinal() );
-                                            else
-                                                sv.setSaldoFinal( sv.getSaldoInicial() + (Double)m.get("soma") );
-                                        }
-                                        else if( sva != null )
-                                        {
-                                            sv.setSaldoInicial(sva.getSaldoFinal());
-                                            sv.setSaldoFinal(sva.getSaldoFinal()+(Double)m.get("soma"));
-                                        }
-                                        else
-                                        {
-                                            sv.setSaldoInicial(0.0);
-                                            sv.setSaldoFinal((Double)m.get("soma"));
-                                        }
-                                        sva=sv;
-                                        saldosDataProvider.getList().add(sv);
+                                        sca = sc;
+                                        saldosDataProvider.getList().add(sc);
                                     }
                                     saldosGrid.setPageSize(saldosDataProvider.getList().size());
                                 }
@@ -196,59 +174,34 @@ public class Saldos extends Composite
     };
 	
 	// Mes Ano
-    private Column<Saldo, String> colunaMesAno = new Column<Saldo, String>(new TextCell()) 
+    private Column<SaldoCalculado, String> colunaMesAno = new Column<SaldoCalculado, String>(new TextCell()) 
     {
-        public String getValue(Saldo s) 
+        public String getValue(SaldoCalculado s) 
         {
-           return (s.getMes() < 10 ? "0":"") + s.getMes() + "/" + s.getAno();
+           return (s.getSaldoReal().getMes() < 10 ? "0":"") + s.getSaldoReal().getMes() + "/" + s.getSaldoReal().getAno();
         }
     };
-    
     // Inicial
-    Column<Saldo, String> colunaInicial = new Column<Saldo, String>(new EditTextCell()) 
+    Column<SaldoCalculado, String> colunaInicial = new Column<SaldoCalculado, String>(new EditTextCell()) 
     {
         {
             setFieldUpdater(
-                new FieldUpdater<Saldo, String>() 
+                new FieldUpdater<SaldoCalculado, String>() 
                 {
                     @Override
-                    public void update(int index, Saldo s, String v) 
+                    public void update(int index, SaldoCalculado s, String v) 
                     {
-                        String anoMes = s.getAno()+"/"+s.getMes();
-                        Saldo sr = anoMesSaldo.get(anoMes);
-//                        Double soma = anoMesSoma.get(anoMes);
-
                         if( v != null && !v.trim().equals("") )
                         {
                             Double val = nf.parse(v);
                             s.setSaldoInicial(val);
-                            if( sr == null )
-                            {
-                                sr = new Saldo();
-                                sr.setId(-1);
-                                sr.setAno(s.getAno());
-                                sr.setMes(s.getMes());
-                                sr.setConta(s.getConta());
-                                anoMesSaldo.put(anoMes,sr);
-                            }
-                            sr.setSaldoInicial(s.getSaldoInicial());
                         }                            
                         else
                         {
-                            int idx = saldosDataProvider.getList().indexOf(s);
-                            if( idx > 0 && saldosDataProvider.getList().size() > 0 )
-                            {
-                                Saldo sa = saldosDataProvider.getList().get(idx-1);
-                                s.setSaldoInicial(sa.getSaldoFinal());
-                            }
-                            else
-                                s.setSaldoInicial(0.0);
-                            
-                            if( sr != null )
-                                sr.setSaldoInicial(null);
+                            s.setSaldoInicial(null);
                         }
                         ((EditTextCell)getCell()).clearViewData(s);
-                        Home.serviceBus.atualizarSaldo(sr,
+                        Home.serviceBus.atualizarSaldo(s.getSaldoReal(),
                             new AsyncCallback<Void>()
                             {
                                 public void onFailure(Throwable caught){}
@@ -263,58 +216,55 @@ public class Saldos extends Composite
                 }
             );
         }
-        public String getValue(Saldo s) 
+        public String getValue(SaldoCalculado s) 
         {
             if( s.getSaldoInicial() == null )
                 return "0.0";
             else
                 return nf.format(s.getSaldoInicial());
         }
-        public String getCellStyleNames(Cell.Context context, Saldo s)
+        public String getCellStyleNames(Cell.Context context, SaldoCalculado s)
         {
             String ret = super.getCellStyleNames(context,s);
-            String anoMes = s.getAno()+"/"+s.getMes();
-            Saldo sr = anoMesSaldo.get(anoMes);
             
-            if( sr == null || sr.getSaldoInicial() == null )
+            if( s.getSaldoInicial() == null )
                 return ret;
 
-            int idx = saldosDataProvider.getList().indexOf(s);
-            if( idx > 0 && saldosDataProvider.getList().size() > 0 )
-            {
-                Saldo sa = saldosDataProvider.getList().get(idx-1);
-                if( sa.getSaldoFinal().compareTo(s.getSaldoInicial()) != 0 )
+            SaldoCalculado anterior = s.getSaldoAnterior();
+            
+            if( anterior != null )
+            	if( s.getSaldoInicial().compareTo(anterior.getSaldoFinal()) != 0 )
                     ret += " saldoDiferente";
                 else
                     ret += " saldoOK";
-            }
+            
+            Saldo sr = s.getSaldoReal();
+            if( sr != null && sr.getSaldoInicial() != null )
+            	ret += " saldoPreenchido";            	
+            
             return ret;
         }
     };
     // Coluna Movimentos
-    Column<Saldo, String> colunaMovimentos = new Column<Saldo, String>(new TextCell()) 
+    Column<SaldoCalculado, String> colunaMovimentos = new Column<SaldoCalculado, String>(new TextCell()) 
     {
-        public String getValue(Saldo s) 
+        public String getValue(SaldoCalculado s) 
         {
-            String anoMes = s.getAno()+"/"+s.getMes();
-            Double soma = anoMesSoma.get(anoMes);
+            Double soma = s.getMovimentos();
             return nf.format(soma);
         }
     };
     // Coluna Diferenças
-    Column<Saldo, String> colunaDiferenca = new Column<Saldo, String>(new TextCell()) 
+    Column<SaldoCalculado, String> colunaDiferenca = new Column<SaldoCalculado, String>(new TextCell()) 
     {
-        public String getValue(Saldo s) 
+        public String getValue(SaldoCalculado s) 
         {
-            String anoMes = s.getAno()+"/"+s.getMes();
-            Double soma = anoMesSoma.get(anoMes);
-            return nf.format(soma-(s.getSaldoFinal()-s.getSaldoInicial()));
+            return nf.format(s.getMovimentos()-(s.getSaldoFinal()-s.getSaldoInicial()));
         }
-        public String getCellStyleNames(Cell.Context context, Saldo s)
+        public String getCellStyleNames(Cell.Context context, SaldoCalculado s)
         {
             String ret = super.getCellStyleNames(context,s);
-            String anoMes = s.getAno()+"/"+s.getMes();
-            Double soma = Math.round(anoMesSoma.get(anoMes)*100)/100.0;
+            Double soma = Math.round(s.getMovimentos()*100)/100.0;
 
             if( soma.compareTo( Math.round( (s.getSaldoFinal()-s.getSaldoInicial()) * 100) / 100.0 ) != 0 )
                 ret += " saldoDiferente";
@@ -324,45 +274,27 @@ public class Saldos extends Composite
         }
 
     };
-
-    
     // Final
-    Column<Saldo, String> colunaFinal = new Column<Saldo, String>(new EditTextCell()) 
+    Column<SaldoCalculado, String> colunaFinal = new Column<SaldoCalculado, String>(new EditTextCell()) 
     {
         {
             setFieldUpdater(
-                new FieldUpdater<Saldo, String>() 
+                new FieldUpdater<SaldoCalculado, String>() 
                 {
                     @Override
-                    public void update(int index, Saldo s, String v) 
+                    public void update(int index, SaldoCalculado s, String v) 
                     {
-                        String anoMes = s.getAno()+"/"+s.getMes();
-                        Saldo sr = anoMesSaldo.get(anoMes);
-                        Double soma = anoMesSoma.get(anoMes);
-                        
                         if( v != null && !v.trim().equals("") )
                         {
                             Double val = nf.parse(v);
                             s.setSaldoFinal(val);
-                            if( sr == null )
-                            {
-                                sr = new Saldo();
-                                sr.setId(-1);
-                                sr.setAno(s.getAno());
-                                sr.setMes(s.getMes());
-                                sr.setConta(s.getConta());
-                                anoMesSaldo.put(anoMes,sr);
-                            }
-                            sr.setSaldoFinal(s.getSaldoFinal());
                         }
                         else
                         {
-                            s.setSaldoFinal(s.getSaldoInicial()+soma);
-                            if( sr != null )
-                                sr.setSaldoFinal(null);
+                            s.setSaldoFinal(null);
                         }
                         ((EditTextCell)getCell()).clearViewData(s);
-                        Home.serviceBus.atualizarSaldo(sr,
+                        Home.serviceBus.atualizarSaldo(s.getSaldoReal(),
                             new AsyncCallback<Void>()
                             {
                                 public void onFailure(Throwable caught){}
@@ -377,32 +309,69 @@ public class Saldos extends Composite
                 }
             );
         }
-        public String getValue(Saldo s) 
+        public String getValue(SaldoCalculado s) 
         {
             if( s.getSaldoFinal() == null )
                 return "0.0";
             else
                 return nf.format(s.getSaldoFinal());
         }
-        public String getCellStyleNames(Cell.Context context, Saldo s)
+        public String getCellStyleNames(Cell.Context context, SaldoCalculado s)
         {
             String ret = super.getCellStyleNames(context,s);
-            String anoMes = s.getAno()+"/"+s.getMes();
-            Double soma = anoMesSoma.get(anoMes);
-            
-            Saldo sr = anoMesSaldo.get(anoMes);
-            if( sr == null || sr.getSaldoFinal() == null )
-                return ret;
 
-            Double sf = Math.round((s.getSaldoInicial() +  soma)*100)/100.0;
+            if( s.getSaldoFinal() == null )
+                return ret;
             
-            if( s.getSaldoFinal().compareTo( sf ) != 0 )
+            if( s.getSaldoFinal().compareTo( Math.round( ( s.getSaldoInicial() + s.getMovimentos() ) * 100.0 ) / 100.0 ) != 0 )
                 ret += " saldoDiferente";
             else
                 ret += " saldoOK";
-
+            
+            Saldo sr = s.getSaldoReal();
+            if( sr != null && sr.getSaldoFinal() != null )
+            	ret += " saldoPreenchido";
+            
             return ret;
         }
 
     };
+}
+
+class SaldoCalculado
+{
+	private SaldoCalculado anterior;
+	private Saldo saldoReal;
+	private Double movimentos; 
+	public SaldoCalculado(Saldo saldoReal, SaldoCalculado anterior, Double movimentos)
+	{
+		this.saldoReal = saldoReal;
+		this.anterior = anterior;
+		this.movimentos = movimentos;
+	}
+	public Saldo getSaldoReal() { return saldoReal; }
+	public SaldoCalculado getSaldoAnterior() { return anterior; }
+	public Double getMovimentos() { return movimentos; }
+	public Double getSaldoInicial()
+	{
+		if( saldoReal == null || saldoReal.getSaldoInicial() == null )
+			if( anterior != null )
+				return anterior.getSaldoFinal();
+			else
+				return 0.0;
+		else
+			return saldoReal.getSaldoInicial();
+	}
+	
+	public Double getSaldoFinal()
+	{
+		if( saldoReal == null || saldoReal.getSaldoFinal() == null )
+			return Math.round( ( getSaldoInicial() + movimentos ) * 100.0 ) / 100.0;
+		else
+			return saldoReal.getSaldoFinal();
+	}
+	public Double getSaldoInicialReal() { if( saldoReal == null ) return null; else return saldoReal.getSaldoInicial(); }
+	public Double getSaldoFinalReal() { if( saldoReal == null ) return null; else return saldoReal.getSaldoFinal(); }
+	public void setSaldoInicial( Double val ) { saldoReal.setSaldoInicial(val); }
+	public void setSaldoFinal( Double val ) { saldoReal.setSaldoFinal(val); }
 }

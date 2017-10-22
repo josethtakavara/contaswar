@@ -11,5 +11,6 @@ public class ResumoDTO implements Serializable
     public int movClassCnt;
     public double movPercentClass;
     public double valor;
+    public String bdString;
 }
  

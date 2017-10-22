@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
@@ -328,7 +329,9 @@ public class MovimentoDAO extends DAOBase
 	
 	public Map<String,Number> getEstatisticas()  
     {
-        Query query = ContasRequestListener.getEntityManager().createQuery(
+		EntityManager em = ContasRequestListener.getEntityManager();
+		//Session s = em.unwrap(Session.class);
+        Query query = em.createQuery(
             "select new Map( " +
             "   count(distinct m) as movimentosCnt, " +
             "   sum(case when m.classificacoes.size>0 then 1 else 0 end) as classificadosCnt, " +
@@ -337,7 +340,9 @@ public class MovimentoDAO extends DAOBase
             ") " +
             "from Movimento m"
         );
-	    return (Map<String,Number>) query.getSingleResult();
+        Map ret = (Map<String,Number>) query.getSingleResult();
+        ret.put("bdString", em.getEntityManagerFactory().getProperties().get("hibernate.connection.url"));
+	    return ret;
     } 
 	
 	public List<Map<String,Number>> sumarizarSaldosMesAno(Conta c)

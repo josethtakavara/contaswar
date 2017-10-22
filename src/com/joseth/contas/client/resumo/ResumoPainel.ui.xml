@@ -29,6 +29,7 @@
 						</table>
 	
 					<li>R$ <g:NumberLabel ui:field="valor"/> movimentados</li>
+					<li>Banco de Dados: <text ui:field='bdString'/></li>
 				</ul>
 			</div>
 		</div>
